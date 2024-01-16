@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="adminBoard">
+
+	<select id="selectListBoard" resultType="BoardDTO">
+		SELECT
+				*
+		FROM
+				BOARD
+		ORDER BY
+				MOVIE_CD
+	</select>
+
+	<delete id="deleteBoard" >
+		DELETE FROM
+				BOARD
+		WHERE
+				BOARD_CD IN 
+		<foreach collection="array" item="boardCd" separator="," open="("  close=")" >
+				#{boardCd}
+		</foreach>
+	</delete>
+	
+	<select id="selectBoardCnt" resultType="int">
+		SELECT
+				COUNT(*)
+		FROM
+				BOARD
+	</select>
+</mapper>

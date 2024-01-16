@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    
+    <definition name="/admin/movie/adminMovieList" extends="adminBaseLayout">
+       <put-attribute name="body" value="/WEB-INF/views/admin/movie/adminMovieList.jsp" />
+       <put-attribute name="title" value="관리자 영화리스트" />
+    </definition>
+
+    <definition name="/admin/movie/adminAddMovie" extends="adminBaseLayout">
+       <put-attribute name="body" value="/WEB-INF/views/admin/movie/adminAddMovie.jsp" />
+       <put-attribute name="title" value="관리자 영화등록" />
+    </definition>
+
+    <definition name="/admin/movie/adminMovieModify" extends="adminBaseLayout">
+       <put-attribute name="body" value="/WEB-INF/views/admin/movie/adminMovieModify.jsp" />
+       <put-attribute name="title" value="관리자 영화수정" />
+    </definition>
+    
+</tiles-definitions>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="myPage">
+
+	<select id="selectOneDetail" parameterType="String" resultType="MemberDTO">
+		SELECT
+				*
+		FROM
+				MEMBER
+		WHERE
+				MEMBER_ID = #{memberId}
+	</select>
+
+	<resultMap type="hashmap" id="myTicketListMap">
+		<result column="TICKET_CD" 		 property="ticketCd"/>
+		<result column="MEMBER_ID" 		 property="memberId"/>
+		<result column="MOVIE_CD" 		 property="movieCd"/>
+		<result column="SEAT"  	 	  	 property="seat"/>
+		<result column="PRICE"  	 	 property="price"/>
+		<result column="PAYMENT_AMT"   	 property="paymentAmt"/>
+		<result column="PAY_ORDER_TIME"  property="payOrderTime"/>
+		<result column="MOVIE_NM" 		 property="movieNm"/>
+		<result column="IMG_NM" 		 property="imgNm"/>
+		<result column="GENRE" 	 	  	 property="genre"/>
+		<result column="RELEASE_DT" 	 property="releaseDt"/>
+		<result column="RUNNING_TIME" 	 property="runningTime"/>
+		<result column="DIRECTOR" 		 property="director"/>
+		<result column="RATINGS" 		 property="ratings"/>
+	</resultMap>
+
+	<select id="selectMyTicketList" parameterType="String" resultMap="myTicketListMap">
+		SELECT
+				T.TICKET_CD 						AS TICKET_CD,
+				T.MEMBER_ID							AS MEMBER_ID,
+		        T.MOVIE_CD 							AS MOVIE_CD,
+		        T.SEAT 								AS SEAT,
+		        T.PRICE 							AS PRICE,
+		        T.PAYMENT_AMT						AS PAYMENT_AMT,
+		        T.PAY_ORDER_TIME    				AS PAY_ORDER_TIME,
+		        M.MOVIE_NM  						AS MOVIE_NM,
+		        M.IMG_NM  							AS IMG_NM,
+		        M.GENRE  							AS GENRE,
+		        DATE_FORMAT(M.RELEASE_DT, '%m.%d') 	AS RELEASE_DT,
+		        M.RUNNING_TIME  					AS RUNNING_TIME,
+		        M.DIRECTOR  						AS DIRECTOR,
+		        M.RATINGS							AS RATINGS
+		FROM
+				TICKET  T
+		    JOIN MOVIE  M
+				    ON  T.MOVIE_CD = M.MOVIE_CD
+				   AND  T.MEMBER_ID = #{memberId}
+	</select>
+	
+	<select id="selectTicketDetail" parameterType="String" resultType="TicketDTO">
+		SELECT
+				*
+		FROM
+				TICKET
+		WHERE	
+				MEMBER_ID = #{memberId}
+	</select>
+	
+
+	<select id="selectMovieList" parameterType="MovieDTO" resultType="MovieDTO">
+		SELECT
+				*
+		FROM
+				MOVIE
+		ORDER BY
+				RATINGS DESC
+		LIMIT	
+				4  
+	</select>
+
+	<select id="selectRelatedMovieList" parameterType="TicketDTO" resultType="MovieDTO">
+		SELECT
+				*
+		FROM
+				MOVIE
+		WHERE
+				GENRE = #{genre} AND MOVIE_CD != #{movieCd}
+		ORDER BY
+				RATINGS DESC
+		LIMIT	
+				4   
+	</select>
+	
+	<delete id="deleteTicket" parameterType="long">
+		DELETE FROM
+				TICKET
+		WHERE
+				TICKET_CD = #{ticketCd}
+	</delete>
+
+	<insert id="insertWishList" parameterType="WishListDTO">
+		INSERT INTO WISH_LIST (
+				MOVIE_CD,
+				MEMBER_ID
+		)
+		VALUES (
+				#{movieCd},
+				#{memberId}
+		)
+	</insert>
+	
+	<delete id="deleteHeart" parameterType="WishListDTO">
+		DELETE FROM
+				WISH_LIST
+		WHERE
+				MOVIE_CD = #{movieCd}
+		AND
+				MEMBER_ID = #{memberId}
+	</delete>
+	
+	<delete id="deleteWish" parameterType="long">
+		DELETE FROM
+				WISH_LIST
+		WHERE
+				WISH_LIST_CD = #{wishListCd}
+	</delete>
+	
+	<resultMap type="hashmap" id="wishListMap">
+		<result column="WISH_LIST_CD" 	 property="wishListCd"/>
+		<result column="MOVIE_CD" 		 property="movieCd"/>
+		<result column="MEMBER_ID" 		 property="memberId"/>
+		<result column="MOVIE_NM" 		 property="movieNm"/>
+		<result column="IMG_NM" 		 property="imgNm"/>
+		<result column="GENRE" 	 	  	 property="genre"/>
+		<result column="RELEASE_DT" 	 property="releaseDt"/>
+		<result column="RUNNING_TIME" 	 property="runningTime"/>
+		<result column="DIRECTOR" 		 property="director"/>
+		<result column="RATINGS" 		 property="ratings"/>
+	</resultMap>
+
+	<select id="selectWishList" parameterType="String" resultMap="wishListMap">
+		SELECT
+				W.WISH_LIST_CD 						AS WISH_LIST_CD,
+				W.MEMBER_ID							AS MEMBER_ID,
+		        W.MOVIE_CD 							AS MOVIE_CD,
+		        M.MOVIE_NM  						AS MOVIE_NM,
+		        M.IMG_NM  							AS IMG_NM,
+		        M.GENRE  							AS GENRE,
+		        DATE_FORMAT(M.RELEASE_DT, '%m.%d') 	AS RELEASE_DT,
+		        M.RUNNING_TIME  					AS RUNNING_TIME,
+		        M.DIRECTOR  						AS DIRECTOR,
+		        M.RATINGS							AS RATINGS
+		FROM
+				WISH_LIST  W
+		       JOIN MOVIE  M
+				       ON  W.MOVIE_CD = M.MOVIE_CD
+				      AND  W.MEMBER_ID = #{memberId}
+	</select>
+	
+</mapper>

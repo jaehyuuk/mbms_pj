@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+   <definition name="/movie/detail" extends="baseLayout">   
+      <put-attribute name="body" value="/WEB-INF/views/client/movie/detail.jsp"/>   
+      <put-attribute name="title" value="Detail"/>   
+   </definition>
+
+   <definition name="/movie/category" extends="baseLayout">   
+      <put-attribute name="body" value="/WEB-INF/views/client/movie/category.jsp"/>   
+      <put-attribute name="title" value="Category"/>   
+   </definition>
+   
+   <definition name="/movie/search" extends="baseLayout">   
+      <put-attribute name="body" value="/WEB-INF/views/client/movie/search.jsp"/>   
+      <put-attribute name="title" value="Search"/>   
+   </definition>
+   
+</tiles-definitions>
+
+

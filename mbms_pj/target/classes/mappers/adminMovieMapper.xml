@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin.movie">
+	
+	<select id="selectListMovie" resultType="MovieDTO">
+		SELECT
+				*
+		FROM
+				MOVIE
+	</select>
+		
+	<select id="selectOneMovie" parameterType="String" resultType="MovieDTO">
+		SELECT
+				*
+		FROM
+				MOVIE
+		WHERE
+				MOVIE_CD = #{movieCd}
+	</select>
+	
+	<insert id="insertMovie" parameterType="MovieDTO">
+		INSERT INTO
+				MOVIE(
+				MOVIE_NM,
+				DIRECTOR,
+				RUNNING_TIME,
+				GENRE,
+				RELEASE_DT,
+				PLOT,
+				IMG_NM,
+				RATINGS,
+				ORIGINAL_PRICE,
+				ENROLL_DT
+				)
+		VALUES	(
+				#{movieNm},
+				#{director},
+				#{runningTime},
+				#{genre},
+				#{releaseDt},
+				#{plot},
+				#{imgNm},
+				#{ratings},
+				#{originalPrice},
+				NOW()
+		)
+	</insert>
+		
+	<update id="updateMovie" parameterType="MovieDTO">
+		UPDATE
+				MOVIE
+		<set>
+				<if test='movieNm != null and movieNm != ""'>
+				MOVIE_NM = #{movieNm},
+				</if>
+				<if test='director != null and director != ""'>
+				DIRECTOR = #{director},
+				</if>
+				<if test='runningTime != null and runningTime != ""'>
+				RUNNING_TIME = #{runningTime},
+				</if>
+				<if test='genre != null and genre != ""'>
+				GENRE = #{genre},
+				</if>
+				RELEASE_DT = #{releaseDt},
+				<if test='plot != null and plot != ""'>
+				PLOT = #{plot},
+				</if>
+				<if test='imgNm != null and imgNm != ""'>
+				IMG_NM = #{imgNm},
+				</if>
+				<if test='ratings != null and ratings != ""'>
+				RATINGS = #{ratings},
+				</if>
+				<if test='originalPrice != null and originalPrice != ""'>
+				ORIGINAL_PRICE = #{originalPrice},
+				</if>
+				ENROLL_DT = NOW()
+		</set>
+		WHERE
+				MOVIE_CD = #{movieCd}
+	</update>
+	
+	<delete id="deleteMovie" parameterType="String">
+		DELETE FROM
+				MOVIE
+		WHERE
+				MOVIE_CD = #{movieCd}
+	</delete>
+
+	<delete id="deleteBoard" parameterType="String">
+		DELETE FROM
+				BOARD
+		WHERE
+				MOVIE_CD = #{movieCd}
+	</delete>
+
+	<delete id="deleteTicket" parameterType="String">
+		DELETE FROM
+				`TICKET`
+		WHERE
+				MOVIE_CD = #{movieCd}
+	</delete>
+
+	<delete id="deleteWishList" parameterType="String">
+		DELETE FROM
+				WISH_LIST
+		WHERE
+				MOVIE_CD = #{movieCd}
+	</delete>
+	
+	<select id="selectMovieCnt" resultType="int">
+		SELECT
+				COUNT(*)
+		FROM
+				MOVIE	
+	</select>
+	
+</mapper>

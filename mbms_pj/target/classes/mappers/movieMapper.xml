@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="movie">
+
+	<select id="selectListMovie" parameterType="MovieDTO" resultType="MovieDTO" >
+		SELECT 
+	   			*
+	    FROM 
+				MOVIE
+	</select>
+
+	<select id="selectOneMovie" parameterType="long" resultType="MovieDTO">
+		SELECT
+				*
+		FROM
+				MOVIE
+		WHERE
+				MOVIE_CD = #{movieCd}
+	</select>
+	
+	<select id ="selectCategoryList" parameterType="hashmap" resultType="MovieDTO">
+		SELECT
+				*
+		FROM
+				MOVIE
+		ORDER BY
+				RATINGS DESC
+		LIMIT
+				#{startBoardIdx} , #{onePageViewCnt}
+	</select>
+	
+	<select id="selectGenreList" parameterType="String" resultType="MovieDTO">
+		SELECT
+				*
+		FROM
+				MOVIE
+		WHERE
+				GENRE = #{genre}
+		ORDER BY
+				RATINGS DESC
+	</select>
+	
+	<select id="selectWishList" parameterType="long" resultType="WishListDTO">
+		SELECT
+				*
+		FROM
+				WISH_LIST
+		WHERE
+				MOVIE_CD = #{movieCd}
+	</select>
+	
+	<select id="selectAllMovieCnt" resultType="int">
+		SELECT
+				COUNT(*)
+		FROM
+				MOVIE
+	</select>
+	
+	
+	<select id="selectRelatedMovieList" parameterType="String" resultType="MovieDTO">
+		SELECT
+				*
+		FROM
+				MOVIE
+		WHERE
+				GENRE = #{genre}
+		ORDER BY
+				RATINGS DESC
+	</select>
+	
+	<select id="selectSearchMovieList" parameterType="String" resultType="MovieDTO">
+		SELECT
+				*
+		FROM
+				MOVIE
+		WHERE
+				MOVIE_NM LIKE CONCAT('%' , #{search} , '%')
+	</select>
+	
+</mapper>

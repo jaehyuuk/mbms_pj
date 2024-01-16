@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	
+	<definition name="/member/login" extends="baseLayout">	
+		<put-attribute name="body" value="/WEB-INF/views/client/member/login.jsp"/>	
+		<put-attribute name="title" value="Login"/>	
+	</definition>
+	
+	<definition name="/member/register" extends="baseLayout">	
+		<put-attribute name="body" value="/WEB-INF/views/client/member/register.jsp"/>	
+		<put-attribute name="title" value="Register"/>	
+	</definition>
+
+	<definition name="/member/myInfo" extends="baseLayout">	
+		<put-attribute name="body" value="/WEB-INF/views/client/member/myInfo.jsp"/>	
+		<put-attribute name="title" value="myInfo"/>	
+	</definition>
+
+</tiles-definitions>
+
+

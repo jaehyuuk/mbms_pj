@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">	
+
+<configuration> 
+
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
+	 
+	<typeAliases>
+	
+		<typeAlias type="com.application.mbms.movie.dto.MovieDTO" alias="MovieDTO"/>
+		<typeAlias type="com.application.mbms.member.dto.MemberDTO" alias="MemberDTO"/>
+		<typeAlias type="com.application.mbms.order.dto.TicketDTO" alias="TicketDTO"/>
+		<typeAlias type="com.application.mbms.movie.dto.BoardDTO" alias="BoardDTO"/>
+		<typeAlias type="com.application.mbms.myPage.dto.WishListDTO" alias="WishListDTO"/>
+		<typeAlias type="com.application.mbms.admin.member.dto.AdminDTO" alias="AdminDTO"/>
+		
+	</typeAliases>
+	
+</configuration>

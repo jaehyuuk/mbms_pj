@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<select id="selectBoardList" parameterType="long" resultType="BoardDTO">
+		SELECT
+				*
+		FROM
+				BOARD
+		WHERE
+				MOVIE_CD = #{movieCd}
+	</select>
+	
+	<insert id="insertBoard" parameterType="BoardDTO">
+		INSERT INTO
+				BOARD(
+				MOVIE_CD,
+				MEMBER_ID,
+				COMMENT,
+				RATINGS,
+				ENROLL_DT
+				)
+				
+		VALUES (
+				#{movieCd},
+				#{memberId},
+				#{comment},
+				#{ratings},
+				NOW()
+		)
+	</insert>
+	
+	<update id="updateRatings" parameterType="long">
+		UPDATE	
+				MOVIE M
+		SET
+				RATINGS = (SELECT
+									FORMAT(AVG(RATINGS) , 1)
+						   FROM
+						   			BOARD B
+						   WHERE B.MOVIE_CD = M.MOVIE_CD
+				)
+		WHERE
+				MOVIE_CD = #{movieCd}
+
+	</update>
+	
+	<delete id="deleteBoard" parameterType="long">
+		DELETE FROM
+				BOARD
+		WHERE
+				BOARD_CD = #{boardCd}
+	</delete>
+	
+</mapper>

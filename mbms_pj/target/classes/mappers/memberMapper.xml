@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+
+  	<insert id="insertMember" parameterType="MemberDTO">
+    	INSERT INTO 
+    			MEMBER 
+    	VALUES (
+				#{memberId},
+				#{passwd},
+				#{memberNm},
+             	#{sex},
+               	#{birthDt},
+               	#{hp},
+                #{smsstsYn},
+                #{email},
+                #{emailstsYn},
+                #{zipcode},
+                #{roadAddress},
+                #{jibunAddress},
+                #{namujiAddress},
+                NOW()
+        )
+  	</insert>
+
+	<select id="selectDuplicatedId" parameterType="String" resultType="String">
+	   SELECT 
+	   			MEMBER_ID
+	   FROM 
+	   			MEMBER
+	   WHERE 
+	   			MEMBER_ID = #{memberId}
+	</select>
+  	
+  	<select id="selectOneLogin" resultType="MemberDTO" parameterType="String">
+		SELECT 
+				* 
+		FROM 
+				MEMBER 
+		WHERE 
+				MEMBER_ID = #{memberId}		
+	</select>
+
+	<select id="selectOneDetail" parameterType="String" resultType="MemberDTO">
+		SELECT
+				*
+		FROM
+				MEMBER
+		WHERE
+				MEMBER_ID = #{memberId}
+	</select>
+	
+	<update id="updateMember" parameterType="MemberDTO">
+		UPDATE
+				MEMBER
+		SET
+				MEMBER_NM = #{memberNm},
+             	SEX = #{sex},
+               	BIRTH_DT = #{birthDt},
+               	HP = #{hp},
+                SMSSTS_YN = #{smsstsYn},
+                EMAIL = #{email},
+                EMAILSTS_YN = #{emailstsYn},
+                ZIPCODE = #{zipcode},
+                ROAD_ADDRESS = #{roadAddress},
+                JIBUN_ADDRESS = #{jibunAddress},
+                NAMUJI_ADDRESS = #{namujiAddress}
+       WHERE
+       			MEMBER_ID = #{memberId}
+	</update>
+
+	<delete id="deleteMember" parameterType="String">
+		DELETE FROM
+				MEMBER
+		WHERE
+				MEMBER_ID = #{memberId}
+	</delete>
+
+	<delete id="deleteTicket" parameterType="String">
+		DELETE FROM
+				TICKET
+		WHERE
+				MEMBER_ID = #{memberId}
+	</delete>
+
+	<delete id="deleteWishList" parameterType="String">
+		DELETE FROM
+				WISH_LIST
+		WHERE
+				MEMBER_ID = #{memberId}
+	</delete>
+
+	<delete id="deleteBoard" parameterType="String">
+		DELETE FROM
+				BOARD
+		WHERE
+				MEMBER_ID = #{memberId}
+	</delete>
+		
+</mapper>
